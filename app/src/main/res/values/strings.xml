@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Ding Popular Movies</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_movie_detail">Movie</string>
+    <string name="popularity">Popularity</string>
+    <string name="video_not_supported">Video not supported</string>
+    <string name="transition_app_bar_layout">transition_app_bar_layout</string>
+    <string name="transition_thumbnail">transition_thumbnail</string>
+</resources>

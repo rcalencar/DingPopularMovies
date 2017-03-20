@@ -1,9 +1,7 @@
-package com.rcalencar.dingpopularmovies;
+package com.rcalencar.popularmovies;
 
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 
 // originally from https://gist.github.com/nesquena/d09dc68ff07e845cc622
 public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnScrollListener {

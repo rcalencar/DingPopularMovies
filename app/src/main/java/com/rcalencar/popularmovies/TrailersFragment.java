@@ -1,4 +1,4 @@
-package com.rcalencar.dingpopularmovies;
+package com.rcalencar.popularmovies;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,9 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.rcalencar.dingpopularmovies.repository.remote.MovieService;
-import com.rcalencar.dingpopularmovies.repository.remote.Service;
-import com.rcalencar.dingpopularmovies.repository.remote.model.Posters;
+import com.rcalencar.popularmovies.repository.remote.MovieService;
+import com.rcalencar.popularmovies.repository.remote.Service;
+import com.rcalencar.popularmovies.repository.remote.model.Trailers;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
 import rx.Observable;
@@ -19,14 +19,15 @@ import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class PostersFragment extends RxFragment {
-    private static final String LOG_TAG = "PostersFragment";
+public class TrailersFragment extends RxFragment {
+    private static final String LOG_TAG = "TrailersFragment";
     private String movieId;
-    private Observable<Posters> postersCache;
-    private PostersAdapter postersAdapter;
-    private Observer<Posters> postersObserver;
 
-    public PostersFragment() {
+    private Observable<Trailers> trailersCache;
+    private TrailersAdapter trailersAdapter;
+    private Observer<Trailers> trailersObserver;
+
+    public TrailersFragment() {
     }
 
     @Override
@@ -39,7 +40,7 @@ public class PostersFragment extends RxFragment {
             throw new RuntimeException("movieId is null");
         }
 
-        postersObserver = new Observer<Posters>() {
+        trailersObserver = new Observer<Trailers>() {
             @Override
             public void onCompleted() {
                 // nothing to see here
@@ -51,43 +52,42 @@ public class PostersFragment extends RxFragment {
             }
 
             @Override
-            public void onNext(Posters result) {
-                postersAdapter.clear();
-                postersAdapter.add(result.getPosters());
+            public void onNext(Trailers result) {
+                trailersAdapter.clear();
+                trailersAdapter.add(result.getResults());
             }
         };
 
-        loadPosters();
-
-        postersAdapter = new PostersAdapter(getContext());
+        loadTrailers();
+        trailersAdapter = new TrailersAdapter(getContext());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_posters, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_trailers, container, false);
 
-        RecyclerView postrsRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_movie_posters);
-        LinearLayoutManager postersLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        postrsRecyclerView.setLayoutManager(postersLayoutManager);
-        postrsRecyclerView.setAdapter(postersAdapter);
+        RecyclerView trailersRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_movie_trailers);
+        LinearLayoutManager trailersLayoutManager = new LinearLayoutManager(getContext());
+        trailersRecyclerView.setLayoutManager(trailersLayoutManager);
+        trailersRecyclerView.setAdapter(trailersAdapter);
 
         if (savedInstanceState != null) {
-            if (postersCache != null) {
-                postersCache.subscribe(postersObserver);
+            if (trailersCache != null) {
+                trailersCache.subscribe(trailersObserver);
             }
         }
 
         return rootView;
     }
 
-    private void loadPosters() {
+    private void loadTrailers() {
         MovieService service = Service.createService(MovieService.API_URL, MovieService.class);
-        postersCache = service
-                .images(movieId)
+        trailersCache = service
+                .trailers(movieId)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(this.bindToLifecycle());
-        postersCache.subscribe(postersObserver);
+        trailersCache.subscribe(trailersObserver);
     }
 }

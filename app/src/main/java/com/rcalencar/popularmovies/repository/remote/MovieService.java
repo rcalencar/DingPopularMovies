@@ -1,9 +1,9 @@
-package com.rcalencar.dingpopularmovies.repository.remote;
+package com.rcalencar.popularmovies.repository.remote;
 
-import com.rcalencar.dingpopularmovies.repository.remote.model.Movie;
-import com.rcalencar.dingpopularmovies.repository.remote.model.PopularMovies;
-import com.rcalencar.dingpopularmovies.repository.remote.model.Posters;
-import com.rcalencar.dingpopularmovies.repository.remote.model.Trailers;
+import com.rcalencar.popularmovies.repository.remote.model.Movie;
+import com.rcalencar.popularmovies.repository.remote.model.PopularMovies;
+import com.rcalencar.popularmovies.repository.remote.model.Posters;
+import com.rcalencar.popularmovies.repository.remote.model.Trailers;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;

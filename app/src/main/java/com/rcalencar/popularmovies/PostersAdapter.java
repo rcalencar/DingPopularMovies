@@ -1,4 +1,4 @@
-package com.rcalencar.dingpopularmovies;
+package com.rcalencar.popularmovies;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,8 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.rcalencar.dingpopularmovies.repository.remote.MovieService;
-import com.rcalencar.dingpopularmovies.repository.remote.model.Poster;
+import com.rcalencar.popularmovies.repository.remote.MovieService;
+import com.rcalencar.popularmovies.repository.remote.model.Poster;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

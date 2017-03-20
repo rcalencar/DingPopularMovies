@@ -1,4 +1,4 @@
-package com.rcalencar.dingpopularmovies.repository.remote.model;
+package com.rcalencar.popularmovies.repository.remote.model;
 
 public class Poster {
     private String file_path;

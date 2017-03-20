@@ -1,6 +1,6 @@
-package com.rcalencar.dingpopularmovies.repository.remote;
+package com.rcalencar.popularmovies.repository.remote;
 
-import com.rcalencar.dingpopularmovies.BuildConfig;
+import com.rcalencar.popularmovies.BuildConfig;
 
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;

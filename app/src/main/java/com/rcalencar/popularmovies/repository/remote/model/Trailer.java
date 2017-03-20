@@ -1,4 +1,4 @@
-package com.rcalencar.dingpopularmovies.repository.remote.model;
+package com.rcalencar.popularmovies.repository.remote.model;
 
 public class Trailer {
     private String id;

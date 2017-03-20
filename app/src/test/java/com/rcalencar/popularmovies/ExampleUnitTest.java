@@ -1,4 +1,4 @@
-package com.rcalencar.dingpopularmovies;
+package com.rcalencar.popularmovies;
 
 import org.junit.Test;
 

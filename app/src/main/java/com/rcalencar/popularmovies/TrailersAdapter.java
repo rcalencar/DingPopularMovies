@@ -1,4 +1,4 @@
-package com.rcalencar.dingpopularmovies;
+package com.rcalencar.popularmovies;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rcalencar.dingpopularmovies.repository.remote.model.Trailer;
+import com.rcalencar.popularmovies.repository.remote.model.Trailer;
 
 import java.util.ArrayList;
 import java.util.List;

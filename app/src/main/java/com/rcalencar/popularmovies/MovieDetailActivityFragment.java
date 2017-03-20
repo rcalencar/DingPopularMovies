@@ -1,4 +1,4 @@
-package com.rcalencar.dingpopularmovies;
+package com.rcalencar.popularmovies;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.rcalencar.dingpopularmovies.repository.remote.MovieService;
-import com.rcalencar.dingpopularmovies.repository.remote.Service;
-import com.rcalencar.dingpopularmovies.repository.remote.model.Movie;
+import com.rcalencar.popularmovies.repository.remote.MovieService;
+import com.rcalencar.popularmovies.repository.remote.Service;
+import com.rcalencar.popularmovies.repository.remote.model.Movie;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 import com.trello.rxlifecycle.components.support.RxFragment;

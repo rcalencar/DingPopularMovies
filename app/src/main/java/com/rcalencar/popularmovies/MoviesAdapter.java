@@ -1,4 +1,4 @@
-package com.rcalencar.dingpopularmovies;
+package com.rcalencar.popularmovies;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.rcalencar.dingpopularmovies.repository.remote.MovieService;
-import com.rcalencar.dingpopularmovies.repository.remote.model.Movie;
+import com.rcalencar.popularmovies.repository.remote.MovieService;
+import com.rcalencar.popularmovies.repository.remote.model.Movie;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 

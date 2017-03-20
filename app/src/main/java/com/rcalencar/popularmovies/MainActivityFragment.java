@@ -1,4 +1,4 @@
-package com.rcalencar.dingpopularmovies;
+package com.rcalencar.popularmovies;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.rcalencar.dingpopularmovies.repository.remote.MovieService;
-import com.rcalencar.dingpopularmovies.repository.remote.Service;
-import com.rcalencar.dingpopularmovies.repository.remote.model.Movie;
-import com.rcalencar.dingpopularmovies.repository.remote.model.PopularMovies;
+import com.rcalencar.popularmovies.repository.remote.MovieService;
+import com.rcalencar.popularmovies.repository.remote.Service;
+import com.rcalencar.popularmovies.repository.remote.model.Movie;
+import com.rcalencar.popularmovies.repository.remote.model.PopularMovies;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
 import rx.Observable;
@@ -25,12 +25,15 @@ import rx.schedulers.Schedulers;
 
 public class MainActivityFragment extends RxFragment implements Observer<PopularMovies>, MoviesAdapter.OnItemSelectedListener {
     private static final String LOG_TAG = "MainActivityFragment";
+    private static final String SELECTED_KEY = "selected_position";
     private Observable<PopularMovies> cache;
     private MoviesAdapter adapter;
     private RecyclerView recyclerView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private int currentPage = 1;
     private OnFragmentInteractionListener fragmentInteractionListener;
+    private LinearLayoutManager mLayoutManager;
+    private int mPosition = RecyclerView.NO_POSITION;
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Movie movie, View view, String path);
@@ -56,13 +59,13 @@ public class MainActivityFragment extends RxFragment implements Observer<Popular
             load(currentPage);
         });
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_popular_movies_result);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
+        mLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(mLayoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),
-                layoutManager.getOrientation());
+                mLayoutManager.getOrientation());
         recyclerView.addItemDecoration(dividerItemDecoration);
         recyclerView.setAdapter(adapter);
-        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(layoutManager, currentPage) {
+        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(mLayoutManager, currentPage) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 currentPage = page;
@@ -70,15 +73,24 @@ public class MainActivityFragment extends RxFragment implements Observer<Popular
             }
         });
 
-        if (savedInstanceState == null) {
+        if (savedInstanceState != null && savedInstanceState.containsKey(SELECTED_KEY)) {
+            mPosition = savedInstanceState.getInt(SELECTED_KEY);
+        }
+
+        if (savedInstanceState == null || cache == null) {
             load(currentPage);
         } else {
-            if (cache != null) {
-                cache.subscribe(this);
-            }
+            cache.subscribe(this);
         }
 
         return rootView;
+    }
+
+    private void localScroll() {
+        if (mPosition != RecyclerView.NO_POSITION) {
+            mLayoutManager.scrollToPosition(mPosition);
+            mPosition = RecyclerView.NO_POSITION;
+        }
     }
 
     @Override
@@ -96,6 +108,14 @@ public class MainActivityFragment extends RxFragment implements Observer<Popular
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        mPosition = mLayoutManager.findFirstVisibleItemPosition();
+        outState.putInt(SELECTED_KEY, mPosition);
+
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -130,6 +150,7 @@ public class MainActivityFragment extends RxFragment implements Observer<Popular
     public void onNext(PopularMovies popularMovies) {
         swipeRefreshLayout.setRefreshing(false);
         adapter.add(popularMovies.getResults());
+        localScroll();
     }
 
     @Override

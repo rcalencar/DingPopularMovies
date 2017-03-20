@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.rcalencar.dingpopularmovies.TrailersFragment"
+    tools:context="com.rcalencar.popularmovies.TrailersFragment"
     tools:showIn="@layout/activity_movie_detail">
 
     <android.support.v7.widget.RecyclerView

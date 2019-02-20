@@ -1,6 +1,6 @@
 # Popular Movies
 
-Popular Movies app example of using:
+Popular Movies app using:
 
 * Shared element transitions
 * rxandroid
@@ -11,5 +11,4 @@ Popular Movies app example of using:
 
 ##### API KEY
 
-Enter the API KEY of themoviedb.org (https://www.themoviedb.org/documentation/api) in file below.</br>
-gradle.properties
+Enter the API KEY of themoviedb.org (https://www.themoviedb.org/documentation/api) into gradle.properties.</br>
